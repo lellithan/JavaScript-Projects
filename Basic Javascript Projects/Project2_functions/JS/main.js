@@ -3,3 +3,8 @@ function myFunction() { // Our first function that instantiates a variable and t
     sentence += " a lot from this book!";
     document.getElementById("Concatenate").innerHTML = sentence;
 }
+
+// Grabbing the innerHTML of our hidden p to display as an alert
+function showAlert() {
+    window.alert("A hidden <p> element holds the innerHTML of: " + document.getElementById("hidden").innerHTML);
+}

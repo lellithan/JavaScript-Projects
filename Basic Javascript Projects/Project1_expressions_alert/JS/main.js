@@ -16,7 +16,7 @@ document.write(3 + 4); // An expression within the write method
 // 1. alert utilized on line 4 and write on line 1.
 
 // 2.
-var Sent1 = "This is the beginning of the sttring", Sent2 = " and this is the end of the string.";
+var Sent1 = "This is the beginning of the string", Sent2 = " and this is the end of the string.";
 
 // 3. 
 document.write(Sent1 + Sent2);
