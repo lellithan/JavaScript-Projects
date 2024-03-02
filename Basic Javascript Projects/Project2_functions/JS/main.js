@@ -8,3 +8,9 @@ function myFunction() { // Our first function that instantiates a variable and t
 function showAlert() {
     window.alert("A hidden <p> element holds the innerHTML of: " + document.getElementById("hidden").innerHTML);
 }
+
+// Arithmetic functions
+function addition_Function() {
+    var addition = 2+2;
+    document.getElementById("Math").innerHTML = "2 + 2 = " + addition;
+}
