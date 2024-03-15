@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Write title here.</title>
+		<meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    </head>
+    <script> 
+        $(document).ready(function() { //build the contents of our html
+            $("html").append( // append this data to the end of the data of html
+                "<body>\
+                    <div id='container'>\
+                        <div id='inner'>\
+                            <h1>Basic jQuery</h1>\
+                            <p id='1'>Paragraph 1</p>\
+                            <p id='2'>Paragraph 2</p>\
+                            <p id='3'>Paragraph 3</p>\
+                        </div>\
+                    </div>\
+                </body>"
+            );
+            $('body').css({"font-weight":"bold"}); // with this code the body is being appended and then closed with the container being appended after the body? 
+            // looked around online and couldn't find out why.
+            $('#2').css({"color":"red"}); // change the styling of id 2 to make the text appear red
+            $('#3').click(function() {
+                $('h1').fadeOut('', function() { $('h1').hide() }); // on click of id 3 fadeOut with the default value of 400 and then on completion run the method hide()
+            });
+            
+        });
+    </script>
+</html>
