@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<body>
+        <p id="XML_Example"></p>
+        <script>
+            var XML_Parser, XML_Document;
+
+            //creates a text string
+            var Movie = "<movie>" + "<title>Birdman</title>" +
+                "<director>Alejandro G. Iñárritu</director>" +
+                "<starring>Michael Keaton</starring>" +
+                "<year>2016</year>"+
+                "</movie>";
+
+            // Create an XML DOM parser
+            XML_Parser = new DOMParser();
+
+            // creates a new XML DOM object using the text string
+            XML_Document = XML_Parser.parseFromString(Movie, "text/html");
+
+            document.getElementById("XML_Example").innerHTML = XML_Document.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+        </script>
+	</body>
+</html>
