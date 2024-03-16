@@ -3,7 +3,12 @@
 	<head>
 		<title>Write title here.</title>
 		<meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <style>
+            html {
+                scroll-behavior: smooth;
+            }
+
             body {
                 opacity: 1;
                 transition: 5s opacity;
@@ -17,6 +22,11 @@
             h1 {
                 font-size: 8vw;
             }
+            
+            .lengthen-page {
+                margin-top: 400rem;
+            }
+
             input[type=text], select {
             width: 100%;
             padding: 12px 20px;
@@ -27,7 +37,7 @@
             box-sizing: border-box;
             }
             
-            input[type=submit] {
+            input[type=submit], .btn-cancel{
             width: 100%;
             background-color: #4CAF50;
             color: white;
@@ -38,26 +48,136 @@
             cursor: pointer;
             }
 
-            input[type=submit]:hover {
+            input[type=submit]:hover, .btn-cancel:hover, .open-button:hover {
             background-color: #45a049;
             }
 
-            div {
-            border-radius: 5px;
-            background-color: #f2f2f2;
-            padding: 20px;
+            .open-button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                position: -webkit-sticky;
+                position: sticky;
+                position: fixed;
+                bottom: 23px;
+                right: 28px;
+                z-index: 8;
+            }
+
+            .form-popup {
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                padding: 20px 0 20px;
+            }
+
+            .form-popup {
+                width: 96%;
+                display: none;
+                position: fixed;
+                border: 3px solid #f1f1f1;
+                z-index: 9;
+            }
+
+            .moving-box {
+                width: 100px;
+                height: 100px;
+                background: red;
+                position: relative;
+                animation: mymove 5s infinite;
+            }
+
+            @keyframes mymove {
+                from {left: 0px;}
+                to {left: 200px;}
+            }
+
+            @keyframes zoominoutsinglefeatured {
+                0% {
+                    transform: scale(1,1);
+                }
+                50% {
+                    transform: scale(1.2,1.2);
+                }
+                100% {
+                    transform: scale(1,1);
+                }
+            }
+
+            .single-featured-image-header img {
+                animation: zoominoutsinglefeatured 15s forwards;
+            }
+
+            .slideshow {
+                margin: 50px auto;
+                position: relative;
+                width: 240px;
+                height: 240px;
+                padding: 10px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            }
+
+            .slideshow > div {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+            }
+
+            .image-container {
+                text-align: center;
+            }
+
+            .image-container > img {
+                margin-top: 10%;
             }
         </style>
 	</head>
 	<body>
+        <a href="#image">Click me to go to a zooming image!</a>
         <h1>Hello, World!</h1>
 
-        <div id="form_container">
-            <form name="myForm" onsubmit="return validateForm()">
-                <label for="phone">*Phone number:</label><br>
-                <input type="text" id="phone" name="phone" value="" placeholder="Enter your phone number."><br>
-                <input type="submit" value="Submit">
-            </form> 
+        <!-- popup form button -->
+        <button class="open-button" onclick="openForm()">Click here to enter your phone number!</button>
+
+        <!-- our form that validates and is a popup-->
+        <div class="form-popup" id="myForm">
+            <div id="form_container">
+                <form name="myForm" onsubmit="return validateForm()">
+                    <label for="phone">*Phone number:</label><br>
+                    <input type="text" id="phone" name="phone" value="" placeholder="Enter your phone number."><br>
+                    <input type="submit" value="Submit">
+                    <button type="button" class="btn-cancel" onclick="closeForm()">Close</button>
+                </form> 
+            </div>
+        </div>
+
+        <br>
+        <div class="moving-box"></div>
+        <br>
+
+        <div class="slideshow">
+            <div class="image-container">
+                <img src="./TicTacToe/images/oldo.png">
+            </div>
+            <div class="image-container">
+                <img src="./TicTacToe/images/oldx.png">
+            </div>
+        </div>
+
+        <p id="myDog"></p>
+        <p id="myDogParsed"></p>
+        <p id="myDogLocal"></p>
+
+        <p id="example" ondblclick="redText()">Double click this paragraph.</p>
+
+        <div class="lengthen-page"></div>
+        <div class="single-featured-image-header" id="image">
+            <img src="./TicTacToe/images/o.png">
         </div>
 
         <script>
@@ -73,6 +193,40 @@
             window.addEventListener('DOMContentLoaded', () => {
                 document.body.classList.remove('fade-out');
             });
+
+            function openForm() {
+              document.getElementById("myForm").style.display = "block";
+            }
+
+            function closeForm() {
+                document.getElementById("myForm").style.display = "none";
+            }
+
+            $('.slideshow > div:gt(0)').hide();
+
+            setInterval(function() {
+                $('.slideshow > div:first')
+                .fadeOut(1000)
+                .next()
+                .fadeIn(1000)
+                .end()
+                .appendTo('.slideshow');
+            }, 3000);
+
+            function redText() {
+                document.getElementById('example').style.color = "red";
+            }
+
+            var dog = {name: "Dax", breed: "Great Pyrenees", color: "White"};
+
+            var JSONstring = JSON.stringify(dog);
+            document.getElementById("myDog").innerHTML = JSONstring;
+
+            var dogParse = JSON.parse(JSONstring);
+            document.getElementById("myDogParsed").innerHTML = dogParse.name + " the " + dogParse.breed;
+
+            localStorage.setItem("Name", "Dax");
+            document.getElementById("myDogLocal").innerHTML = localStorage.getItem("Name");
         </script>
 	</body>
 </html>
